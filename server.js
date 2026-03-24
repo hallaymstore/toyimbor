@@ -9,6 +9,8 @@ try {
 
 const express = require("express");
 const mongoose = require("mongoose");
+// MongoDB konfiguratsiyasi
+mongoose.set("strictQuery", false);
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
@@ -2334,17 +2336,48 @@ app.use((err, _req, res, _next) => {
 });
 
 async function start() {
-  await mongoose.connect(MONGODB_URI);
-  await ensureAdminUser();
+  try {
+    console.log("MongoDB ga ulanishga urinmoqda...");
+    console.log(`MONGODB_URI: ${MONGODB_URI.substring(0, 50)}...`);
+    
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      retryWrites: true,
+      w: "majority",
+    });
+    
+    console.log("✓ MongoDB ga muvaffaqiyatli ulandi!");
+    
+    // Connection event listeners
+    mongoose.connection.on("connected", () => {
+      console.log("✓ Mongoose serverga ulanmoqda");
+    });
 
-  server.listen(PORT, () => {
-    console.log(`ToyImbor server ishlayapti: http://localhost:${PORT}`);
-    console.log(`Admin login: ${ADMIN_EMAIL}`);
-    console.log(`Admin password: ${ADMIN_PASSWORD}`);
-  });
+    mongoose.connection.on("error", (err) => {
+      console.error("✗ Mongoose ulanish xatosi:", err);
+    });
+
+    mongoose.connection.on("disconnected", () => {
+      console.warn("⚠ Mongoose uzildi");
+    });
+
+    await ensureAdminUser();
+
+    server.listen(PORT, () => {
+      console.log(`\n🎉 ToyImbor server ishlayapti: http://localhost:${PORT}`);
+      console.log(`📧 Admin login: ${ADMIN_EMAIL}`);
+      console.log(`🔑 Admin password: ${ADMIN_PASSWORD}`);
+      console.log(`\n✓ Barcha xizmatlar faol\n`);
+    });
+  } catch (error) {
+    console.error("❌ Server ishga tushmadi:", error.message);
+    console.error("Xatolik tafsilotlari:", error);
+    process.exit(1);
+  }
 }
 
 start().catch((error) => {
-  console.error("Server ishga tushmadi:", error);
+  console.error("❌ Kutilmagan xatolik:", error);
   process.exit(1);
 });
