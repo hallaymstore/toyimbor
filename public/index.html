@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToyImbor | To'yxona, Fotograf va Restoran Platformasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#ebfffb",
+                100: "#ccfbf1",
+                500: "#0f766e",
+                600: "#115e59",
+                700: "#134e4a",
+              },
+              accent: {
+                300: "#f7e1a4",
+                400: "#f4d06f",
+                500: "#ddb24a",
+              },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+            boxShadow: {
+              glow: "0 20px 80px rgba(15,118,110,0.22)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(221, 178, 74, 0.15), transparent 28%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+
+      .glass {
+        backdrop-filter: blur(16px);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .dark .glass {
+        background: rgba(8, 20, 19, 0.72);
+      }
+
+      .card-rise {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: all 0.7s ease;
+      }
+
+      .card-rise.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <div class="fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
+        <a href="/" class="flex items-center gap-3">
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white shadow-glow">TI</div>
+          <div>
+            <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+            <div class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Event Marketplace</div>
+          </div>
+        </a>
+        <div class="hidden items-center gap-6 md:flex">
+          <a href="/discover.html?role=venue" class="text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300">To'yxonalar</a>
+          <a href="/discover.html?role=photographer" class="text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300">Fotograflar</a>
+          <a href="/discover.html?role=restaurant" class="text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300">Restoranlar</a>
+          <a href="/messages.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300">Xabarlar</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+            <i data-lucide="moon" class="h-4 w-4"></i>
+          </button>
+          <div id="authActions" class="flex items-center gap-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <main class="mx-auto max-w-7xl px-4 pb-16 pt-28 md:px-6">
+      <section class="grid items-center gap-8 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:py-16">
+        <div>
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-brand-700 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-200">
+            Premium wedding ecosystem
+          </div>
+          <h1 class="max-w-4xl font-display text-5xl font-semibold leading-tight md:text-7xl">
+            To'yxona, fotograf va restoranlarni bitta nafis platformada boshqaring.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            ToyImbor orqali xizmat ko'rsatuvchilar profil ochadi, post joylaydi, bron oladi, premium belgi oladi va real-time xabarlar orqali mijozlar bilan ishlaydi.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="/register.html" class="rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-brand-500">Ro'yxatdan o'tish</a>
+            <a href="/discover.html" class="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 dark:border-white/15 dark:text-white">Xizmatlarni ko'rish</a>
+          </div>
+          <div class="mt-8 grid gap-4 sm:grid-cols-3">
+            <div class="glass rounded-3xl border border-white/60 p-5 shadow-sm dark:border-white/10">
+              <div class="text-sm text-slate-500 dark:text-slate-400">Aktiv foydalanuvchi</div>
+              <div id="usersCount" class="mt-2 text-3xl font-extrabold">0</div>
+            </div>
+            <div class="glass rounded-3xl border border-white/60 p-5 shadow-sm dark:border-white/10">
+              <div class="text-sm text-slate-500 dark:text-slate-400">Xizmat ko'rsatuvchi</div>
+              <div id="providersCount" class="mt-2 text-3xl font-extrabold">0</div>
+            </div>
+            <div class="glass rounded-3xl border border-white/60 p-5 shadow-sm dark:border-white/10">
+              <div class="text-sm text-slate-500 dark:text-slate-400">Jami bron</div>
+              <div id="bookingsCount" class="mt-2 text-3xl font-extrabold">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-brand-500/20 via-transparent to-accent-400/20 blur-2xl"></div>
+          <div class="glass overflow-hidden rounded-[2rem] border border-white/70 p-5 shadow-glow dark:border-white/10">
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="rounded-[1.7rem] bg-gradient-to-br from-brand-600 to-brand-700 p-6 text-white">
+                <div class="text-sm uppercase tracking-[0.35em] text-brand-100">3 Mahal Bron</div>
+                <div class="mt-4 font-display text-4xl">Ertalab, kunduzi, kechki slotlar</div>
+                <p class="mt-4 text-sm text-brand-100/90">Har bir sana uchun aniq vaqt oralig'i bilan qulay boshqaruv.</p>
+              </div>
+              <div class="space-y-4">
+                <div class="rounded-[1.7rem] border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-slate-500 dark:text-slate-400">Premium tasdiq</div>
+                      <div class="mt-1 text-xl font-bold">Admin approval</div>
+                    </div>
+                    <div class="rounded-2xl bg-accent-400/20 p-3 text-accent-500">
+                      <i data-lucide="badge-check" class="h-6 w-6"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="rounded-[1.7rem] border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-slate-500 dark:text-slate-400">Real-time chat</div>
+                      <div class="mt-1 text-xl font-bold">Socket xabarlar</div>
+                    </div>
+                    <div class="rounded-2xl bg-brand-500/15 p-3 text-brand-600 dark:text-brand-300">
+                      <i data-lucide="messages-square" class="h-6 w-6"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="rounded-[1.7rem] border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900">
+                  <div class="text-sm text-slate-500 dark:text-slate-400">Role dashboard</div>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">User</span>
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">Photographer</span>
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">Venue</span>
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">Restaurant</span>
+                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">Admin</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600 dark:text-brand-300">Asosiy yo'nalishlar</p>
+            <h2 class="mt-3 font-display text-4xl font-semibold">Har bir rol uchun alohida oqim</h2>
+          </div>
+          <a href="/dashboard.html" class="text-sm font-semibold text-brand-600 dark:text-brand-300">Mening panelim</a>
+        </div>
+        <div class="mt-8 grid gap-5 md:grid-cols-4">
+          <a href="/register.html?role=user" class="card-rise rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-slate-950/60">
+            <div class="rounded-2xl bg-brand-500/10 p-3 text-brand-600 w-fit dark:text-brand-200"><i data-lucide="user-round" class="h-6 w-6"></i></div>
+            <div class="mt-5 text-2xl font-bold">Foydalanuvchi</div>
+            <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Bron qilish, kuzatish, obuna bo'lish va providerlar bilan real-time yozishmalar.</p>
+          </a>
+          <a href="/register.html?role=photographer" class="card-rise rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-slate-950/60">
+            <div class="rounded-2xl bg-brand-500/10 p-3 text-brand-600 w-fit dark:text-brand-200"><i data-lucide="camera" class="h-6 w-6"></i></div>
+            <div class="mt-5 text-2xl font-bold">Fotograf</div>
+            <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Portfolio, xizmatlar, bron so'rovlari, premium badge va postlar.</p>
+          </a>
+          <a href="/register.html?role=venue" class="card-rise rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-slate-950/60">
+            <div class="rounded-2xl bg-brand-500/10 p-3 text-brand-600 w-fit dark:text-brand-200"><i data-lucide="building-2" class="h-6 w-6"></i></div>
+            <div class="mt-5 text-2xl font-bold">To'yxona</div>
+            <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Sig'im, xizmat paketlari, bron slotlari va tasdiqlangan profil boshqaruvi.</p>
+          </a>
+          <a href="/register.html?role=restaurant" class="card-rise rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm dark:border-white/10 dark:bg-slate-950/60">
+            <div class="rounded-2xl bg-brand-500/10 p-3 text-brand-600 w-fit dark:text-brand-200"><i data-lucide="utensils-crossed" class="h-6 w-6"></i></div>
+            <div class="mt-5 text-2xl font-bold">Restoran</div>
+            <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Menu xizmatlari, joylashuv, premium tasdiq va ko'rinadigan ommaviy profil.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="mt-16">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600 dark:text-brand-300">Top providerlar</p>
+            <h2 class="mt-3 font-display text-4xl font-semibold">Tavsiya etilgan premium profilalar</h2>
+          </div>
+          <a href="/discover.html" class="text-sm font-semibold text-brand-600 dark:text-brand-300">Hammasini ko'rish</a>
+        </div>
+        <div id="featuredGrid" class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+
+      <section class="mt-16">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600 dark:text-brand-300">So'nggi postlar</p>
+            <h2 class="mt-3 font-display text-4xl font-semibold">Platformadagi yangi e'lonlar</h2>
+          </div>
+          <a href="/dashboard.html" class="text-sm font-semibold text-brand-600 dark:text-brand-300">Post joylash</a>
+        </div>
+        <div id="postsGrid" class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+    </main>
+
+    <script>
+      const storage = {
+        get token() {
+          return localStorage.getItem("toyimbor_token") || "";
+        },
+        get user() {
+          const raw = localStorage.getItem("toyimbor_user");
+          return raw ? JSON.parse(raw) : null;
+        },
+      };
+
+      function setTheme(theme) {
+        const root = document.documentElement;
+        if (theme === "dark") {
+          root.classList.add("dark");
+        } else {
+          root.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function toggleTheme() {
+        const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
+        setTheme(next);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function numberFormat(value) {
+        return new Intl.NumberFormat("uz-UZ").format(value || 0);
+      }
+
+      function formatDate(value) {
+        return new Date(value).toLocaleDateString("uz-UZ", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      async function api(url, options = {}) {
+        const headers = { ...(options.headers || {}) };
+        if (!(options.body instanceof FormData)) {
+          headers["Content-Type"] = "application/json";
+        }
+        if (storage.token) {
+          headers.Authorization = `Bearer ${storage.token}`;
+        }
+        const response = await fetch(url, { ...options, headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || "Xatolik yuz berdi");
+        }
+        return data;
+      }
+
+      function renderAuthActions() {
+        const root = document.getElementById("authActions");
+        if (!storage.user) {
+          root.innerHTML = `
+            <a href="/login.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 dark:border-white/15 dark:text-white md:inline-flex">Kirish</a>
+            <a href="/register.html" class="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white">Boshlash</a>
+          `;
+          return;
+        }
+
+        root.innerHTML = `
+          <a href="/dashboard.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 dark:border-white/15 dark:text-white md:inline-flex">Panel</a>
+          <a href="/messages.html" class="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white">Chat</a>
+        `;
+      }
+
+      function providerBadge(item) {
+        const badge = item.verified
+          ? `<span class="inline-flex items-center gap-1 rounded-full bg-accent-400/20 px-3 py-1 text-xs font-bold text-accent-500">Verified</span>`
+          : "";
+        const premium = item.premium
+          ? `<span class="inline-flex items-center gap-1 rounded-full bg-brand-500/15 px-3 py-1 text-xs font-bold text-brand-600 dark:text-brand-200">Premium</span>`
+          : "";
+        return `${badge}${premium}`;
+      }
+
+      function renderFeatured(items) {
+        const grid = document.getElementById("featuredGrid");
+        if (!items.length) {
+          grid.innerHTML = `<div class="rounded-[2rem] border border-dashed border-slate-300 p-8 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">Hozircha providerlar qo'shilmagan. Birinchi premium profilni yarating.</div>`;
+          return;
+        }
+
+        grid.innerHTML = items
+          .map(
+            (item) => `
+              <article class="card-rise overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 shadow-sm transition hover:-translate-y-1 hover:shadow-glow dark:border-white/10 dark:bg-slate-950/60">
+                <div class="h-56 bg-cover bg-center" style="background-image:url('${item.coverUrl || item.avatarUrl || "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80"}')"></div>
+                <div class="p-6">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="flex flex-wrap items-center gap-2">
+                        <h3 class="text-2xl font-bold">${item.name}</h3>
+                        ${providerBadge(item)}
+                      </div>
+                      <p class="mt-2 text-sm uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">${item.role}</p>
+                    </div>
+                    <div class="rounded-2xl bg-slate-100 px-3 py-2 text-sm font-bold dark:bg-white/10">${item.city || "Uzbekiston"}</div>
+                  </div>
+                  <p class="mt-4 line-clamp-3 text-sm leading-7 text-slate-600 dark:text-slate-300">${item.bio || "Profil hali to'liq to'ldirilmagan, lekin xizmatlar sahifasi tayyor."}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    ${(item.tags || []).slice(0, 3).map((tag) => `<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">${tag}</span>`).join("")}
+                  </div>
+                  <div class="mt-6 grid grid-cols-3 gap-3 text-sm">
+                    <div class="rounded-2xl bg-slate-100/70 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Obuna</div><div class="mt-1 font-extrabold">${item.followersCount}</div></div>
+                    <div class="rounded-2xl bg-slate-100/70 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Xizmat</div><div class="mt-1 font-extrabold">${item.serviceCount}</div></div>
+                    <div class="rounded-2xl bg-slate-100/70 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Post</div><div class="mt-1 font-extrabold">${item.postCount}</div></div>
+                  </div>
+                  <div class="mt-6 flex gap-3">
+                    <a href="/profile.html?id=${item.id}" class="flex-1 rounded-full bg-brand-600 px-4 py-3 text-center text-sm font-semibold text-white">Profilni ko'rish</a>
+                    <a href="/messages.html?with=${item.id}" class="rounded-full border border-slate-300 px-4 py-3 text-sm font-semibold dark:border-white/10">Xabar</a>
+                  </div>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+        revealCards();
+      }
+
+      function renderPosts(items) {
+        const grid = document.getElementById("postsGrid");
+        if (!items.length) {
+          grid.innerHTML = `<div class="rounded-[2rem] border border-dashed border-slate-300 p-8 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">Hozircha postlar yo'q. Dashboard orqali birinchi postni joylang.</div>`;
+          return;
+        }
+
+        grid.innerHTML = items
+          .map(
+            (item) => `
+              <article class="card-rise overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 shadow-sm dark:border-white/10 dark:bg-slate-950/60">
+                <div class="h-64 bg-cover bg-center" style="background-image:url('${item.imageUrl || "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80"}')"></div>
+                <div class="p-6">
+                  <div class="flex items-center gap-3">
+                    <div class="h-12 w-12 rounded-2xl bg-cover bg-center" style="background-image:url('${item.author?.avatarUrl || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"}')"></div>
+                    <div>
+                      <div class="font-bold">${item.author?.name || "ToyImbor"}</div>
+                      <div class="text-sm text-slate-500 dark:text-slate-400">${formatDate(item.createdAt)}</div>
+                    </div>
+                  </div>
+                  <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">${item.caption}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    ${(item.tags || []).slice(0, 4).map((tag) => `<span class="rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-700 dark:text-brand-200">${tag}</span>`).join("")}
+                  </div>
+                </div>
+              </article>
+            `
+          )
+          .join("");
+        revealCards();
+      }
+
+      function revealCards() {
+        const items = document.querySelectorAll(".card-rise");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        items.forEach((item) => observer.observe(item));
+      }
+
+      async function loadHome() {
+        try {
+          const data = await api("/api/home");
+          document.getElementById("usersCount").textContent = numberFormat(data.stats.users);
+          document.getElementById("providersCount").textContent = numberFormat(data.stats.providers);
+          document.getElementById("bookingsCount").textContent = numberFormat(data.stats.bookings);
+          renderFeatured(data.featured);
+          renderPosts(data.latestPosts);
+        } catch (error) {
+          document.getElementById("featuredGrid").innerHTML = `<div class="rounded-[2rem] border border-dashed border-rose-300 p-8 text-center text-rose-500">${error.message}</div>`;
+          document.getElementById("postsGrid").innerHTML = "";
+        }
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+      initTheme();
+      renderAuthActions();
+      loadHome();
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

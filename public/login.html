@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kirish | ToyImbor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: { 500: "#0f766e", 600: "#115e59", 700: "#134e4a" },
+              accent: { 400: "#f4d06f", 500: "#ddb24a" },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.18), transparent 25%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <main class="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 py-10 md:px-6 lg:grid-cols-[0.95fr_1.05fr]">
+      <section class="rounded-[2rem] border border-white/70 bg-white/80 p-8 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+        <a href="/" class="inline-flex items-center gap-3">
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white">TI</div>
+          <div>
+            <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+            <div class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Login</div>
+          </div>
+        </a>
+        <h1 class="mt-10 font-display text-5xl font-semibold">Akkauntingizga kiring</h1>
+        <p class="mt-5 max-w-lg text-base leading-8 text-slate-600 dark:text-slate-300">
+          Dashboard, real-time xabarlar, bronlar va admin tekshiruvlari bilan ishlash uchun kirish qiling.
+        </p>
+        <div class="mt-10 rounded-[1.8rem] bg-brand-600 p-6 text-white">
+          <div class="text-sm uppercase tracking-[0.35em] text-brand-100">Admin demo</div>
+          <div class="mt-4 text-lg font-semibold">Agar yangi baza bo'lsa avtomatik admin yaratiladi</div>
+          <div class="mt-3 text-sm text-brand-100/90">
+            Email: <span class="font-semibold">admin@toyimbor.uz</span><br />
+            Parol: <span class="font-semibold">Admin123!</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Kirish formasi</p>
+            <h2 class="mt-2 text-3xl font-bold">Qaytganingizdan xursandmiz</h2>
+          </div>
+          <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+            <i data-lucide="moon" class="h-4 w-4"></i>
+          </button>
+        </div>
+
+        <form id="loginForm" class="mt-8 space-y-5">
+          <div>
+            <label class="mb-2 block text-sm font-semibold">Email</label>
+            <input name="email" type="email" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="you@example.com" />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-semibold">Parol</label>
+            <input name="password" type="password" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Parolingiz" />
+          </div>
+          <button class="w-full rounded-2xl bg-brand-600 px-6 py-4 text-sm font-bold uppercase tracking-[0.3em] text-white">Kirish</button>
+        </form>
+
+        <div id="messageBox" class="mt-5 hidden rounded-2xl px-4 py-3 text-sm"></div>
+        <p class="mt-8 text-sm text-slate-600 dark:text-slate-300">
+          Akkauntingiz yo'qmi?
+          <a href="/register.html" class="font-semibold text-brand-600 dark:text-brand-300">Ro'yxatdan o'ting</a>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function toggleTheme() {
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+
+      function showMessage(message, type = "error") {
+        const box = document.getElementById("messageBox");
+        box.className = `mt-5 rounded-2xl px-4 py-3 text-sm ${
+          type === "success"
+            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200"
+            : "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-200"
+        }`;
+        box.textContent = message;
+      }
+
+      async function api(url, options = {}) {
+        const headers = { ...(options.headers || {}) };
+        if (!(options.body instanceof FormData)) {
+          headers["Content-Type"] = "application/json";
+        }
+        const response = await fetch(url, { ...options, headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || "Xatolik");
+        }
+        return data;
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+      document.getElementById("loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        const payload = Object.fromEntries(form.entries());
+
+        try {
+          const data = await api("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify(payload),
+          });
+          localStorage.setItem("toyimbor_token", data.token);
+          localStorage.setItem("toyimbor_user", JSON.stringify(data.user));
+          showMessage("Muvaffaqiyatli kirildi, yo'naltirilmoqda...", "success");
+          setTimeout(() => {
+            window.location.href = data.user.role === "admin" ? "/admin.html" : "/dashboard.html";
+          }, 600);
+        } catch (error) {
+          showMessage(error.message);
+        }
+      });
+
+      initTheme();
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

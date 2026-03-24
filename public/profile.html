@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil | ToyImbor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: { 500: "#0f766e", 600: "#115e59", 700: "#134e4a" },
+              accent: { 400: "#f4d06f", 500: "#ddb24a" },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.18), transparent 25%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <main class="mx-auto max-w-7xl px-4 py-6 md:px-6">
+      <header class="sticky top-4 z-40 rounded-[2rem] border border-white/70 bg-white/70 px-5 py-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <a href="/" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white">TI</div>
+            <div>
+              <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+              <div class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Public Profile</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-3">
+            <a href="/discover.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10 dark:text-white md:inline-flex">Katalog</a>
+            <a href="/dashboard.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10 dark:text-white md:inline-flex">Panel</a>
+            <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+              <i data-lucide="moon" class="h-4 w-4"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section id="hero" class="mt-8 overflow-hidden rounded-[2.2rem] border border-white/70 bg-white/80 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+        <div id="coverImage" class="h-64 bg-cover bg-center md:h-80"></div>
+        <div class="-mt-16 px-6 pb-8 md:px-8">
+          <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div class="flex items-end gap-5">
+              <div id="avatarImage" class="h-28 w-28 rounded-[2rem] border-4 border-white bg-cover bg-center shadow-lg dark:border-slate-950"></div>
+              <div class="pb-2">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h1 id="profileName" class="font-display text-5xl font-semibold">Profil</h1>
+                  <div id="badgeRow" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div id="profileMeta" class="mt-3 text-sm uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400"></div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button id="followButton" class="hidden rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white">Obuna bo'lish</button>
+              <a id="messageButton" href="#" class="hidden rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold dark:border-white/10">Xabar yuborish</a>
+              <a id="editButton" href="/dashboard.html" class="hidden rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold dark:border-white/10">Dashboard</a>
+            </div>
+          </div>
+          <div class="mt-6 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+            <div class="space-y-4">
+              <p id="profileBio" class="text-base leading-8 text-slate-600 dark:text-slate-300"></p>
+              <div id="tagRow" class="flex flex-wrap gap-2"></div>
+              <div class="grid gap-4 sm:grid-cols-4">
+                <div class="rounded-[1.6rem] bg-slate-100/80 p-4 dark:bg-white/5"><div class="text-sm text-slate-500 dark:text-slate-400">Obunachi</div><div id="followersCount" class="mt-2 text-2xl font-bold">0</div></div>
+                <div class="rounded-[1.6rem] bg-slate-100/80 p-4 dark:bg-white/5"><div class="text-sm text-slate-500 dark:text-slate-400">Xizmatlar</div><div id="servicesCount" class="mt-2 text-2xl font-bold">0</div></div>
+                <div class="rounded-[1.6rem] bg-slate-100/80 p-4 dark:bg-white/5"><div class="text-sm text-slate-500 dark:text-slate-400">Postlar</div><div id="postsCount" class="mt-2 text-2xl font-bold">0</div></div>
+                <div class="rounded-[1.6rem] bg-slate-100/80 p-4 dark:bg-white/5"><div class="text-sm text-slate-500 dark:text-slate-400">So'rovlar</div><div id="requestsCount" class="mt-2 text-2xl font-bold">0</div></div>
+              </div>
+            </div>
+            <div class="rounded-[1.8rem] bg-brand-600 p-6 text-white">
+              <div class="text-sm uppercase tracking-[0.35em] text-brand-100">Kontakt va booking</div>
+              <div id="contactList" class="mt-4 space-y-3 text-sm text-brand-100/90"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-8">
+          <div class="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Xizmatlar</p>
+                <h2 class="mt-2 font-display text-4xl font-semibold">Taklif etilayotgan xizmatlar</h2>
+              </div>
+            </div>
+            <div id="servicesGrid" class="mt-6 grid gap-4 md:grid-cols-2"></div>
+          </div>
+
+          <div class="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Postlar</p>
+              <h2 class="mt-2 font-display text-4xl font-semibold">Oxirgi yangilanishlar</h2>
+            </div>
+            <div id="postsGrid" class="mt-6 grid gap-4 md:grid-cols-2"></div>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <div class="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">3 mahal bron</p>
+            <h2 class="mt-2 font-display text-4xl font-semibold">Mavjud slotlar</h2>
+            <div class="mt-5">
+              <label class="mb-2 block text-sm font-semibold">Sana tanlang</label>
+              <input id="bookingDate" type="date" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" />
+            </div>
+            <div id="slotGrid" class="mt-5 grid gap-3"></div>
+          </div>
+
+          <div class="rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Bron yuborish</p>
+            <h2 class="mt-2 font-display text-4xl font-semibold">So'rov formasi</h2>
+            <form id="bookingForm" class="mt-6 space-y-4">
+              <input type="hidden" name="providerId" id="providerIdInput" />
+              <input type="hidden" name="slot" id="slotInput" />
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Xizmat</label>
+                <select id="serviceSelect" name="serviceId" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900"></select>
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Tadbir sanasi</label>
+                <input name="eventDate" id="eventDateInput" type="date" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" />
+              </div>
+              <div class="grid gap-4 md:grid-cols-2 guest-only">
+                <div>
+                  <label class="mb-2 block text-sm font-semibold">Ism</label>
+                  <input name="guestName" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Ismingiz" />
+                </div>
+                <div>
+                  <label class="mb-2 block text-sm font-semibold">Telefon</label>
+                  <input name="guestPhone" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="+998..." />
+                </div>
+              </div>
+              <div class="guest-only">
+                <label class="mb-2 block text-sm font-semibold">Email</label>
+                <input name="guestEmail" type="email" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="you@example.com" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Mehmonlar soni</label>
+                <input name="attendeeCount" type="number" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="250" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Qo'shimcha izoh</label>
+                <textarea name="note" rows="4" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Dekor, maxsus talab yoki boshqa eslatma"></textarea>
+              </div>
+              <button class="w-full rounded-2xl bg-brand-600 px-5 py-4 text-sm font-bold uppercase tracking-[0.3em] text-white">Bron yuborish</button>
+            </form>
+            <div id="formMessage" class="mt-4 hidden rounded-2xl px-4 py-3 text-sm"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const state = {
+        currentUser: localStorage.getItem("toyimbor_user")
+          ? JSON.parse(localStorage.getItem("toyimbor_user"))
+          : null,
+        profile: null,
+        services: [],
+      };
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function toggleTheme() {
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+
+      function showMessage(message, type = "error") {
+        const box = document.getElementById("formMessage");
+        box.className = `mt-4 rounded-2xl px-4 py-3 text-sm ${
+          type === "success"
+            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200"
+            : "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-200"
+        }`;
+        box.textContent = message;
+      }
+
+      async function api(url, options = {}) {
+        const headers = { ...(options.headers || {}) };
+        if (!(options.body instanceof FormData)) {
+          headers["Content-Type"] = "application/json";
+        }
+        const token = localStorage.getItem("toyimbor_token");
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
+        }
+        const response = await fetch(url, { ...options, headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || "Xatolik");
+        }
+        return data;
+      }
+
+      function profileId() {
+        return new URLSearchParams(window.location.search).get("id");
+      }
+
+      function renderProfile(data) {
+        state.profile = data.user;
+        state.services = data.services || [];
+        document.title = `${data.user.name} | ToyImbor`;
+        document.getElementById("coverImage").style.backgroundImage = `url('${data.user.coverUrl || data.user.avatarUrl || "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1400&q=80"}')`;
+        document.getElementById("avatarImage").style.backgroundImage = `url('${data.user.avatarUrl || "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=700&q=80"}')`;
+        document.getElementById("profileName").textContent = data.user.name;
+        document.getElementById("profileMeta").textContent = `${data.user.role} • ${data.user.city || "Uzbekiston"}`;
+        document.getElementById("profileBio").textContent = data.user.bio || "Profil bio qismi hali to'liq to'ldirilmagan.";
+        document.getElementById("followersCount").textContent = data.user.followersCount || 0;
+        document.getElementById("servicesCount").textContent = data.stats.totalServices || 0;
+        document.getElementById("postsCount").textContent = data.stats.totalPosts || 0;
+        document.getElementById("requestsCount").textContent = data.stats.totalRequests || 0;
+        document.getElementById("providerIdInput").value = data.user.id;
+
+        document.getElementById("tagRow").innerHTML = (data.user.tags || [])
+          .map((tag) => `<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">${tag}</span>`)
+          .join("");
+
+        document.getElementById("badgeRow").innerHTML = `
+          ${data.user.verified ? `<span class="rounded-full bg-accent-400/20 px-3 py-1 text-xs font-bold text-accent-500">Verified</span>` : ""}
+          ${data.user.premium ? `<span class="rounded-full bg-brand-500/15 px-3 py-1 text-xs font-bold text-brand-600 dark:text-brand-200">Premium</span>` : ""}
+        `;
+
+        document.getElementById("contactList").innerHTML = `
+          <div>Telefon: <span class="font-semibold">${data.user.phone || "Ko'rsatilmagan"}</span></div>
+          <div>Instagram: <span class="font-semibold">${data.user.socials.instagram || "Yo'q"}</span></div>
+          <div>Telegram: <span class="font-semibold">${data.user.socials.telegram || "Yo'q"}</span></div>
+          <div>Website: <span class="font-semibold">${data.user.socials.website || "Yo'q"}</span></div>
+          <div>Narx oralig'i: <span class="font-semibold">${data.user.priceFrom || "-"} - ${data.user.priceTo || "-"}</span></div>
+          <div>Sig'im: <span class="font-semibold">${data.user.capacity || "-"}</span></div>
+        `;
+
+        const self = state.currentUser && state.currentUser.id === data.user.id;
+        if (self) {
+          document.getElementById("editButton").classList.remove("hidden");
+        } else {
+          document.getElementById("messageButton").classList.remove("hidden");
+          document.getElementById("messageButton").href = `/messages.html?with=${data.user.id}`;
+          if (state.currentUser) {
+            document.getElementById("followButton").classList.remove("hidden");
+            document.getElementById("followButton").textContent = data.user.isFollowing ? "Obunani bekor qilish" : "Obuna bo'lish";
+          }
+        }
+
+        document.querySelectorAll(".guest-only").forEach((item) => {
+          item.style.display = state.currentUser ? "none" : "";
+        });
+
+        document.getElementById("serviceSelect").innerHTML = `
+          <option value="">Xizmat tanlamasdan bron qilish</option>
+          ${state.services.map((service) => `<option value="${service.id}">${service.title} ${service.price ? `- ${new Intl.NumberFormat("uz-UZ").format(service.price)}` : ""}</option>`).join("")}
+        `;
+
+        document.getElementById("servicesGrid").innerHTML = state.services.length
+          ? state.services.map((service) => `
+              <article class="rounded-[1.6rem] border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900">
+                <div class="text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">${service.category || "Service"}</div>
+                <h3 class="mt-3 text-2xl font-bold">${service.title}</h3>
+                <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">${service.description || "Tavsif kiritilmagan."}</p>
+                <div class="mt-4 flex flex-wrap gap-2">${(service.features || []).map((feature) => `<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">${feature}</span>`).join("")}</div>
+                <div class="mt-5 flex items-center justify-between text-sm font-semibold">
+                  <span>${service.durationText || "Moslashuvchan vaqt"}</span>
+                  <span>${service.price ? new Intl.NumberFormat("uz-UZ").format(service.price) : "Kelishiladi"}</span>
+                </div>
+              </article>
+            `).join("")
+          : `<div class="rounded-[1.6rem] border border-dashed border-slate-300 p-8 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">Hozircha xizmat joylanmagan.</div>`;
+
+        document.getElementById("postsGrid").innerHTML = (data.posts || []).length
+          ? data.posts.map((post) => `
+              <article class="overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900">
+                <div class="h-52 bg-cover bg-center" style="background-image:url('${post.imageUrl || "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=80"}')"></div>
+                <div class="p-5">
+                  <div class="text-sm text-slate-500 dark:text-slate-400">${new Date(post.createdAt).toLocaleDateString("uz-UZ")}</div>
+                  <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">${post.caption}</p>
+                  <div class="mt-4 flex flex-wrap gap-2">${(post.tags || []).map((tag) => `<span class="rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-700 dark:text-brand-200">${tag}</span>`).join("")}</div>
+                </div>
+              </article>
+            `).join("")
+          : `<div class="rounded-[1.6rem] border border-dashed border-slate-300 p-8 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">Postlar hali yo'q.</div>`;
+      }
+
+      async function loadProfile() {
+        const id = profileId();
+        if (!id) {
+          window.location.href = "/discover.html";
+          return;
+        }
+        const data = await api(`/api/profile/${id}`);
+        renderProfile(data);
+      }
+
+      async function loadAvailability() {
+        if (!state.profile) return;
+        const date = document.getElementById("bookingDate").value;
+        if (!date) return;
+        document.getElementById("eventDateInput").value = date;
+        const data = await api(`/api/bookings/availability/${state.profile.id}?date=${date}`);
+        document.getElementById("slotGrid").innerHTML = data.slots
+          .map((slot) => `
+            <button type="button" data-slot="${slot.value}" class="rounded-[1.6rem] border px-4 py-4 text-left transition ${
+              slot.available
+                ? "border-slate-200 bg-white hover:border-brand-500 dark:border-white/10 dark:bg-slate-900"
+                : "border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200"
+            }">
+              <div class="text-sm uppercase tracking-[0.3em]">${slot.value}</div>
+              <div class="mt-2 text-lg font-bold">${slot.label}</div>
+              <div class="mt-2 text-sm">${slot.available ? "Bo'sh" : "Band"}</div>
+            </button>
+          `)
+          .join("");
+
+        document.querySelectorAll("[data-slot]").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (button.textContent.includes("Band")) return;
+            document.querySelectorAll("[data-slot]").forEach((item) => item.classList.remove("ring-2", "ring-brand-500"));
+            button.classList.add("ring-2", "ring-brand-500");
+            document.getElementById("slotInput").value = button.dataset.slot;
+          });
+        });
+      }
+
+      document.getElementById("bookingDate").addEventListener("change", loadAvailability);
+
+      document.getElementById("followButton").addEventListener("click", async () => {
+        try {
+          const result = await api(`/api/follow/${state.profile.id}`, { method: "POST" });
+          document.getElementById("followButton").textContent = result.following ? "Obunani bekor qilish" : "Obuna bo'lish";
+          document.getElementById("followersCount").textContent = result.followersCount;
+        } catch (error) {
+          showMessage(error.message);
+        }
+      });
+
+      document.getElementById("bookingForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const payload = Object.fromEntries(new FormData(event.currentTarget).entries());
+        if (!payload.slot) {
+          showMessage("Avval vaqt slotini tanlang.");
+          return;
+        }
+        try {
+          const data = await api("/api/bookings", {
+            method: "POST",
+            body: JSON.stringify(payload),
+          });
+          showMessage(`Bron yuborildi. Holat: ${data.booking.status}`, "success");
+          loadAvailability();
+        } catch (error) {
+          showMessage(error.message);
+        }
+      });
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+      const today = new Date().toISOString().slice(0, 10);
+      document.getElementById("bookingDate").value = today;
+      document.getElementById("eventDateInput").value = today;
+
+      initTheme();
+      loadProfile().then(loadAvailability).catch((error) => {
+        document.body.innerHTML = `<div class="mx-auto max-w-xl px-6 py-20 text-center text-rose-500">${error.message}</div>`;
+      });
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

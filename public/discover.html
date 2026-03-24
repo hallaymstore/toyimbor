@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Katalog | ToyImbor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: { 500: "#0f766e", 600: "#115e59", 700: "#134e4a" },
+              accent: { 400: "#f4d06f", 500: "#ddb24a" },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+            boxShadow: {
+              glow: "0 20px 70px rgba(15,118,110,0.18)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.18), transparent 25%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+
+      .provider-card {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: all 0.65s ease;
+      }
+
+      .provider-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <div class="mx-auto max-w-7xl px-4 py-6 md:px-6">
+      <header class="sticky top-4 z-40 rounded-[2rem] border border-white/70 bg-white/70 px-5 py-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <a href="/" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white">TI</div>
+            <div>
+              <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+              <div id="pageSubtitle" class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Discover</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-3">
+            <a href="/dashboard.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 dark:border-white/10 dark:text-white md:inline-flex">Panel</a>
+            <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+              <i data-lucide="moon" class="h-4 w-4"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="grid gap-8 pt-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside class="h-fit rounded-[2rem] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Qidiruv filtr</p>
+          <h1 id="pageTitle" class="mt-3 font-display text-5xl font-semibold leading-none">Katalog</h1>
+          <p id="pageDescription" class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">Providerlarni toping, filtrlab chiqing va sahifa og'irlashmasdan scroll orqali yuklang.</p>
+          <form id="filterForm" class="mt-8 space-y-4">
+            <div>
+              <label class="mb-2 block text-sm font-semibold">Kalit so'z</label>
+              <input name="q" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Luxury, studio, 500 o'rinli..." />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold">Shahar</label>
+              <input name="city" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Toshkent" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-white/10">
+                <input type="checkbox" name="premium" class="h-4 w-4 accent-brand-600" />
+                <span class="text-sm font-medium">Premium</span>
+              </label>
+              <label class="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 dark:border-white/10">
+                <input type="checkbox" name="verified" class="h-4 w-4 accent-brand-600" />
+                <span class="text-sm font-medium">Verified</span>
+              </label>
+            </div>
+            <button class="w-full rounded-2xl bg-brand-600 px-5 py-3 text-sm font-bold uppercase tracking-[0.3em] text-white">Yangilash</button>
+          </form>
+          <div class="mt-8 rounded-[1.7rem] bg-brand-600 p-5 text-white">
+            <div class="text-sm uppercase tracking-[0.35em] text-brand-100">Performance</div>
+            <p class="mt-3 text-sm leading-7 text-brand-100/90">
+              Har safar 20 tadan kartalar yuklanadi. Pastga tushganda keyingi blok animatsiya bilan ulanadi.
+            </p>
+          </div>
+        </aside>
+
+        <section>
+          <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div id="resultMeta" class="text-sm text-slate-500 dark:text-slate-400">Natijalar yuklanmoqda...</div>
+            </div>
+            <div class="flex gap-2">
+              <a href="/discover.html?role=venue" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10">To'yxonalar</a>
+              <a href="/discover.html?role=photographer" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10">Fotograflar</a>
+              <a href="/discover.html?role=restaurant" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10">Restoranlar</a>
+            </div>
+          </div>
+          <div id="cardsGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-2"></div>
+          <div id="emptyState" class="hidden rounded-[2rem] border border-dashed border-slate-300 p-12 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">Hech narsa topilmadi.</div>
+          <div id="loadingMore" class="py-8 text-center text-sm text-slate-500 dark:text-slate-400">Yuklanmoqda...</div>
+          <div id="sentinel" class="h-4"></div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const roleMeta = {
+        all: {
+          title: "Barcha providerlar",
+          subtitle: "All providers",
+          description: "ToyImbor platformasidagi premium va verified profillarni ko'ring.",
+        },
+        venue: {
+          title: "To'yxonalar",
+          subtitle: "Venues",
+          description: "Sig'im, narx oralig'i va premium belgilari bilan to'yxona tanlang.",
+        },
+        photographer: {
+          title: "Fotograflar",
+          subtitle: "Photographers",
+          description: "Portfolio, xizmatlar va bron qilinadigan fotograflarni toping.",
+        },
+        restaurant: {
+          title: "Restoranlar",
+          subtitle: "Restaurants",
+          description: "Restoran va catering xizmatlarini filtrlab ko'ring.",
+        },
+      };
+
+      const state = {
+        page: 1,
+        hasMore: true,
+        loading: false,
+        total: 0,
+      };
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function toggleTheme() {
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+
+      async function api(url) {
+        const headers = {};
+        const token = localStorage.getItem("toyimbor_token");
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
+        }
+        const response = await fetch(url, { headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || "Xatolik yuz berdi");
+        }
+        return data;
+      }
+
+      function currentRole() {
+        const role = new URLSearchParams(window.location.search).get("role");
+        return roleMeta[role] ? role : "all";
+      }
+
+      function currentFilters() {
+        const form = new FormData(document.getElementById("filterForm"));
+        const params = new URLSearchParams(window.location.search);
+        const role = currentRole();
+        if (role !== "all") {
+          params.set("role", role);
+        } else {
+          params.delete("role");
+        }
+        params.set("page", state.page);
+        params.set("limit", 20);
+        if (form.get("q")) params.set("q", form.get("q"));
+        else params.delete("q");
+        if (form.get("city")) params.set("city", form.get("city"));
+        else params.delete("city");
+        if (form.get("premium")) params.set("premium", "true");
+        else params.delete("premium");
+        if (form.get("verified")) params.set("verified", "true");
+        else params.delete("verified");
+        return params;
+      }
+
+      function cardBadge(item) {
+        return `
+          ${item.verified ? `<span class="rounded-full bg-accent-400/20 px-3 py-1 text-xs font-bold text-accent-500">Verified</span>` : ""}
+          ${item.premium ? `<span class="rounded-full bg-brand-500/15 px-3 py-1 text-xs font-bold text-brand-600 dark:text-brand-200">Premium</span>` : ""}
+        `;
+      }
+
+      function renderCard(item) {
+        return `
+          <article class="provider-card overflow-hidden rounded-[2rem] border border-white/70 bg-white/85 shadow-sm transition hover:-translate-y-1 hover:shadow-glow dark:border-white/10 dark:bg-slate-950/70">
+            <div class="h-64 bg-cover bg-center" style="background-image:url('${item.coverUrl || item.avatarUrl || "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=80"}')"></div>
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="text-2xl font-bold">${item.name}</h3>
+                    ${cardBadge(item)}
+                  </div>
+                  <div class="mt-2 text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">${item.role}</div>
+                </div>
+                <div class="rounded-2xl bg-slate-100 px-3 py-2 text-sm font-semibold dark:bg-white/10">${item.city || "Uzbekiston"}</div>
+              </div>
+              <p class="mt-4 line-clamp-3 text-sm leading-7 text-slate-600 dark:text-slate-300">${item.bio || "Bio kiritilmagan."}</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                ${(item.tags || []).slice(0, 4).map((tag) => `<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold dark:bg-white/10">${tag}</span>`).join("")}
+              </div>
+              <div class="mt-6 grid grid-cols-4 gap-3 text-sm">
+                <div class="rounded-2xl bg-slate-100/80 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Obuna</div><div class="mt-1 font-extrabold">${item.followersCount}</div></div>
+                <div class="rounded-2xl bg-slate-100/80 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Xizmat</div><div class="mt-1 font-extrabold">${item.serviceCount}</div></div>
+                <div class="rounded-2xl bg-slate-100/80 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Post</div><div class="mt-1 font-extrabold">${item.postCount}</div></div>
+                <div class="rounded-2xl bg-slate-100/80 p-3 dark:bg-white/5"><div class="text-slate-500 dark:text-slate-400">Narx</div><div class="mt-1 font-extrabold">${item.minPrice ? new Intl.NumberFormat("uz-UZ").format(item.minPrice) : "-"}</div></div>
+              </div>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <a href="/profile.html?id=${item.id}" class="flex-1 rounded-full bg-brand-600 px-4 py-3 text-center text-sm font-semibold text-white">Profil</a>
+                <a href="/messages.html?with=${item.id}" class="rounded-full border border-slate-300 px-4 py-3 text-sm font-semibold dark:border-white/10">Xabar</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function revealNewCards() {
+        document.querySelectorAll(".provider-card:not(.visible)").forEach((card) => {
+          requestAnimationFrame(() => card.classList.add("visible"));
+        });
+      }
+
+      async function loadProviders({ reset = false } = {}) {
+        if (state.loading || (!state.hasMore && !reset)) {
+          return;
+        }
+
+        state.loading = true;
+        document.getElementById("loadingMore").textContent = "Yuklanmoqda...";
+
+        if (reset) {
+          state.page = 1;
+          state.hasMore = true;
+          document.getElementById("cardsGrid").innerHTML = "";
+          document.getElementById("emptyState").classList.add("hidden");
+        }
+
+        try {
+          const params = currentFilters();
+          const data = await api(`/api/discover?${params.toString()}`);
+          state.hasMore = data.hasMore;
+          state.total = data.total;
+          const grid = document.getElementById("cardsGrid");
+          grid.insertAdjacentHTML("beforeend", data.items.map(renderCard).join(""));
+          document.getElementById("resultMeta").textContent = `${data.total} ta natija topildi. Bir blokda 20 ta karta yuklanadi.`;
+          if (!grid.children.length) {
+            document.getElementById("emptyState").classList.remove("hidden");
+          }
+          revealNewCards();
+          state.page += 1;
+          document.getElementById("loadingMore").textContent = state.hasMore ? "Pastga tushsangiz yana yuklanadi..." : "Barcha natijalar ko'rsatildi.";
+        } catch (error) {
+          document.getElementById("loadingMore").textContent = error.message;
+        } finally {
+          state.loading = false;
+        }
+      }
+
+      function initHeader() {
+        const meta = roleMeta[currentRole()];
+        document.getElementById("pageTitle").textContent = meta.title;
+        document.getElementById("pageSubtitle").textContent = meta.subtitle;
+        document.getElementById("pageDescription").textContent = meta.description;
+        document.title = `${meta.title} | ToyImbor`;
+      }
+
+      document.getElementById("filterForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        loadProviders({ reset: true });
+      });
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadProviders();
+          }
+        });
+      });
+
+      initTheme();
+      initHeader();
+      observer.observe(document.getElementById("sentinel"));
+      loadProviders({ reset: true });
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

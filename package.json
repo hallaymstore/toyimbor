@@ -1,0 +1,32 @@
+{
+  "name": "toyimbor",
+  "version": "1.0.0",
+  "description": "Toyimbor - Event booking platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "event",
+    "booking",
+    "photographer",
+    "venue",
+    "restaurant"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^6.5.0",
+    "multer": "^2.1.1",
+    "socket.io": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ro'yxatdan o'tish | ToyImbor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: { 500: "#0f766e", 600: "#115e59", 700: "#134e4a" },
+              accent: { 400: "#f4d06f", 500: "#ddb24a" },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.18), transparent 25%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+
+      .role-card.active {
+        border-color: rgba(15, 118, 110, 0.7);
+        background: rgba(15, 118, 110, 0.1);
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <main class="mx-auto max-w-7xl px-4 py-10 md:px-6">
+      <div class="grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
+        <section class="rounded-[2rem] border border-white/70 bg-white/80 p-8 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+          <div class="flex items-center justify-between gap-4">
+            <a href="/" class="inline-flex items-center gap-3">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white">TI</div>
+              <div>
+                <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+                <div class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Register</div>
+              </div>
+            </a>
+            <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+              <i data-lucide="moon" class="h-4 w-4"></i>
+            </button>
+          </div>
+
+          <h1 class="mt-8 font-display text-5xl font-semibold leading-tight">Rolingizga mos professional akkaunt yarating</h1>
+          <p class="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300">
+            Foydalanuvchi, fotograf, to'yxona yoki restoran sifatida ro'yxatdan o'ting. Provider rollari uchun premium tasdiq va ommaviy profil tayyor.
+          </p>
+
+          <div class="mt-8 grid gap-4">
+            <div class="rounded-[1.8rem] bg-brand-600 p-6 text-white">
+              <div class="text-sm uppercase tracking-[0.35em] text-brand-100">Nimalar tayyor?</div>
+              <ul class="mt-4 space-y-3 text-sm leading-7 text-brand-100/90">
+                <li>3 mahal bron slotlari</li>
+                <li>Ommaviy profil va obunachilar</li>
+                <li>Premium badge uchun admin tasdiq oqimi</li>
+                <li>Real-time xabarlar va boshqaruv paneli</li>
+              </ul>
+            </div>
+            <div class="rounded-[1.8rem] border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-slate-900">
+              <div class="text-sm uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Qisqa tavsiya</div>
+              <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Provider profillari uchun bio, taglar, shahar va ijtimoiy havolalarni to'ldirish tavsiya qilinadi. Keyin dashboard'dan xizmat va postlar qo'shasiz.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+          <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">1-qadam</p>
+          <h2 class="mt-2 text-3xl font-bold">Rolni tanlang</h2>
+          <div id="roleGrid" class="mt-6 grid gap-4 sm:grid-cols-2"></div>
+
+          <form id="registerForm" class="mt-8 space-y-5" enctype="multipart/form-data">
+            <input type="hidden" name="role" id="roleInput" value="user" />
+            <div class="grid gap-5 md:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Ism yoki brend nomi</label>
+                <input name="name" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Masalan: Samandar Studio" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Email</label>
+                <input name="email" type="email" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="you@example.com" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Parol</label>
+                <input name="password" type="password" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Kamida 6 ta belgi" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Telefon</label>
+                <input name="phone" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="+998 90 123 45 67" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Shahar</label>
+                <input name="city" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Toshkent" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Xizmat hududi</label>
+                <input name="serviceArea" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Butun Respublika / shaharlar" />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-semibold">Qisqa bio</label>
+              <textarea name="bio" rows="4" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Siz yoki brendingiz haqida qisqacha yozing"></textarea>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-3">
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Taglar</label>
+                <input name="tags" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="luxury, outdoor, premium" />
+              </div>
+              <div class="provider-only">
+                <label class="mb-2 block text-sm font-semibold">Boshlang'ich narx</label>
+                <input name="priceFrom" type="number" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="5000000" />
+              </div>
+              <div class="provider-only">
+                <label class="mb-2 block text-sm font-semibold">Yuqori narx</label>
+                <input name="priceTo" type="number" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="12000000" />
+              </div>
+            </div>
+
+            <div class="provider-only">
+              <label class="mb-2 block text-sm font-semibold">Sig'im</label>
+              <input name="capacity" type="number" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="250" />
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-3">
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Instagram</label>
+                <input name="instagram" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="@username" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Telegram</label>
+                <input name="telegram" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="@username" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Website</label>
+                <input name="website" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="https://..." />
+              </div>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Avatar rasmi</label>
+                <input name="avatar" type="file" accept="image/*" class="w-full rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-4 text-sm dark:border-white/10 dark:bg-slate-900" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Cover rasmi</label>
+                <input name="cover" type="file" accept="image/*" class="w-full rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-4 text-sm dark:border-white/10 dark:bg-slate-900" />
+              </div>
+            </div>
+
+            <button class="w-full rounded-2xl bg-brand-600 px-6 py-4 text-sm font-bold uppercase tracking-[0.3em] text-white">Akkaunt yaratish</button>
+          </form>
+
+          <div id="messageBox" class="mt-5 hidden rounded-2xl px-4 py-3 text-sm"></div>
+          <p class="mt-8 text-sm text-slate-600 dark:text-slate-300">
+            Akkauntingiz bormi?
+            <a href="/login.html" class="font-semibold text-brand-600 dark:text-brand-300">Kirish</a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const roles = [
+        { value: "user", title: "Foydalanuvchi", icon: "user-round", description: "Bron qilish, kuzatish va xabar yuborish uchun." },
+        { value: "photographer", title: "Fotograf", icon: "camera", description: "Portfolio, xizmatlar va bronlar uchun." },
+        { value: "venue", title: "To'yxona", icon: "building-2", description: "Sig'im, sana slotlari va premium profil uchun." },
+        { value: "restaurant", title: "Restoran", icon: "utensils-crossed", description: "Menyu, xizmatlar va bronlarni boshqarish uchun." },
+      ];
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function toggleTheme() {
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+
+      function showMessage(message, type = "error") {
+        const box = document.getElementById("messageBox");
+        box.className = `mt-5 rounded-2xl px-4 py-3 text-sm ${
+          type === "success"
+            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200"
+            : "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-200"
+        }`;
+        box.textContent = message;
+      }
+
+      function renderRoles() {
+        const root = document.getElementById("roleGrid");
+        const selected = document.getElementById("roleInput").value;
+        root.innerHTML = roles
+          .map(
+            (role) => `
+              <button type="button" data-role="${role.value}" class="role-card rounded-[1.7rem] border border-slate-200 bg-white p-5 text-left transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-900 ${selected === role.value ? "active" : ""}">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="rounded-2xl bg-brand-500/10 p-3 text-brand-600 dark:text-brand-200">
+                    <i data-lucide="${role.icon}" class="h-5 w-5"></i>
+                  </div>
+                  <span class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">${role.value}</span>
+                </div>
+                <div class="mt-4 text-lg font-bold">${role.title}</div>
+                <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">${role.description}</p>
+              </button>
+            `
+          )
+          .join("");
+        document.querySelectorAll("[data-role]").forEach((button) => {
+          button.addEventListener("click", () => selectRole(button.dataset.role));
+        });
+        lucide.createIcons();
+      }
+
+      function selectRole(role) {
+        document.getElementById("roleInput").value = role;
+        const isProvider = ["photographer", "venue", "restaurant"].includes(role);
+        document.querySelectorAll(".provider-only").forEach((item) => {
+          item.style.display = isProvider ? "" : "none";
+        });
+        renderRoles();
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+      document.getElementById("registerForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+
+        try {
+          const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: form,
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.error || "Ro'yxatdan o'tishda xatolik");
+          }
+
+          localStorage.setItem("toyimbor_token", data.token);
+          localStorage.setItem("toyimbor_user", JSON.stringify(data.user));
+          showMessage("Akkaunt yaratildi, panelga o'tilmoqda...", "success");
+          setTimeout(() => {
+            window.location.href = "/dashboard.html";
+          }, 700);
+        } catch (error) {
+          showMessage(error.message);
+        }
+      });
+
+      const presetRole = new URLSearchParams(window.location.search).get("role");
+      if (roles.some((role) => role.value === presetRole)) {
+        document.getElementById("roleInput").value = presetRole;
+      }
+
+      initTheme();
+      renderRoles();
+      selectRole(document.getElementById("roleInput").value);
+    </script>
+  </body>
+</html>

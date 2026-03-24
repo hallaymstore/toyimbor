@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xabarlar | ToyImbor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: { 500: "#0f766e", 600: "#115e59", 700: "#134e4a" },
+              accent: { 400: "#f4d06f", 500: "#ddb24a" },
+            },
+            fontFamily: {
+              display: ['"Cormorant Garamond"', "serif"],
+              body: ['"Manrope"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.18), transparent 25%),
+          #f8f5ef;
+      }
+
+      .dark body {
+        background:
+          radial-gradient(circle at top left, rgba(45, 212, 191, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(244, 208, 111, 0.08), transparent 24%),
+          #081413;
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 dark:text-white">
+    <div class="mx-auto max-w-7xl px-4 py-6 md:px-6">
+      <header class="mb-6 rounded-[2rem] border border-white/70 bg-white/70 px-5 py-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <a href="/" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 text-lg font-extrabold text-white">TI</div>
+            <div>
+              <div class="font-display text-3xl font-bold leading-none">ToyImbor</div>
+              <div class="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Realtime chat</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-3">
+            <a href="/dashboard.html" class="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10 dark:text-white md:inline-flex">Panel</a>
+            <button id="themeToggle" class="rounded-full border border-slate-200 bg-white p-2.5 text-slate-700 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+              <i data-lucide="moon" class="h-4 w-4"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="grid gap-6 lg:grid-cols-[340px_minmax(0,1fr)]">
+        <aside class="rounded-[2rem] border border-white/70 bg-white/80 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+          <div class="px-2 pb-4">
+            <p class="text-sm font-semibold uppercase tracking-[0.35em] text-brand-600 dark:text-brand-300">Threads</p>
+            <h1 class="mt-2 font-display text-4xl font-semibold">Suhbatlar</h1>
+          </div>
+          <div id="threadsList" class="space-y-3"></div>
+        </aside>
+
+        <section class="overflow-hidden rounded-[2rem] border border-white/70 bg-white/85 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-950/70">
+          <div id="chatHeader" class="border-b border-slate-200 px-6 py-5 dark:border-white/10">
+            <div class="text-sm text-slate-500 dark:text-slate-400">Suhbat tanlang</div>
+          </div>
+          <div id="messagesBox" class="flex h-[60vh] flex-col gap-4 overflow-y-auto px-6 py-6"></div>
+          <form id="messageForm" class="border-t border-slate-200 px-6 py-5 dark:border-white/10">
+            <div class="flex gap-3">
+              <input id="messageInput" class="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-brand-500 dark:border-white/10 dark:bg-slate-900" placeholder="Xabaringizni yozing..." />
+              <button class="rounded-2xl bg-brand-600 px-5 py-3 text-sm font-bold uppercase tracking-[0.2em] text-white">Yuborish</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const state = {
+        token: localStorage.getItem("toyimbor_token") || "",
+        user: localStorage.getItem("toyimbor_user")
+          ? JSON.parse(localStorage.getItem("toyimbor_user"))
+          : null,
+        activeUserId: new URLSearchParams(window.location.search).get("with") || "",
+        socket: null,
+      };
+
+      if (!state.token || !state.user) {
+        window.location.href = "/login.html";
+      }
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("toyimbor_theme", theme);
+      }
+
+      function initTheme() {
+        const saved = localStorage.getItem("toyimbor_theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(saved || preferred);
+      }
+
+      function toggleTheme() {
+        setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+      }
+
+      async function api(url, options = {}) {
+        const headers = { ...(options.headers || {}) };
+        if (!(options.body instanceof FormData)) {
+          headers["Content-Type"] = "application/json";
+        }
+        headers.Authorization = `Bearer ${state.token}`;
+        const response = await fetch(url, { ...options, headers });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || "Xatolik");
+        }
+        return data;
+      }
+
+      function threadItem(thread) {
+        return `
+          <button type="button" data-thread-user="${thread.otherUser?.id || ""}" class="thread-item w-full rounded-[1.6rem] border border-slate-200 bg-white p-4 text-left transition hover:border-brand-500 dark:border-white/10 dark:bg-slate-900 ${state.activeUserId === thread.otherUser?.id ? "ring-2 ring-brand-500" : ""}">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-base font-bold">${thread.otherUser?.name || "Noma'lum"}</div>
+                <div class="mt-1 text-xs uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">${thread.otherUser?.role || "-"}</div>
+              </div>
+              ${thread.unreadCount ? `<span class="rounded-full bg-brand-600 px-2.5 py-1 text-xs font-bold text-white">${thread.unreadCount}</span>` : ""}
+            </div>
+            <p class="mt-3 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">${thread.lastMessage.body}</p>
+          </button>
+        `;
+      }
+
+      function renderThreads(items) {
+        const root = document.getElementById("threadsList");
+        if (!items.length) {
+          root.innerHTML = `<div class="rounded-[1.6rem] border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-white/10 dark:text-slate-400">Hali suhbatlar yo'q.</div>`;
+          return;
+        }
+
+        root.innerHTML = items.map(threadItem).join("");
+        document.querySelectorAll("[data-thread-user]").forEach((button) => {
+          button.addEventListener("click", () => {
+            state.activeUserId = button.dataset.threadUser;
+            window.history.replaceState({}, "", `/messages.html?with=${state.activeUserId}`);
+            loadThreads();
+            loadMessages();
+          });
+        });
+      }
+
+      function renderMessages(otherUser, items) {
+        document.getElementById("chatHeader").innerHTML = otherUser
+          ? `
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">${otherUser.role}</div>
+                  <div class="mt-1 text-2xl font-bold">${otherUser.name}</div>
+                </div>
+                <a href="/profile.html?id=${otherUser.id}" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold dark:border-white/10">Profil</a>
+              </div>
+            `
+          : `<div class="text-sm text-slate-500 dark:text-slate-400">Suhbat tanlang</div>`;
+
+        const root = document.getElementById("messagesBox");
+        root.innerHTML = items.length
+          ? items
+              .map(
+                (item) => `
+                <div class="flex ${item.from.id === state.user.id ? "justify-end" : "justify-start"}">
+                  <div class="max-w-[80%] rounded-[1.6rem] px-4 py-3 text-sm leading-7 ${
+                    item.from.id === state.user.id
+                      ? "bg-brand-600 text-white"
+                      : "bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-white"
+                  }">
+                    <div>${item.body}</div>
+                    <div class="mt-2 text-xs opacity-70">${new Date(item.createdAt).toLocaleString("uz-UZ")}</div>
+                  </div>
+                </div>
+              `
+              )
+              .join("")
+          : `<div class="my-auto rounded-[1.6rem] border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-white/10 dark:text-slate-400">Xabarlar shu yerda ko'rinadi.</div>`;
+
+        root.scrollTop = root.scrollHeight;
+      }
+
+      async function loadThreads() {
+        const data = await api("/api/messages/threads");
+        renderThreads(data.items);
+        if (!state.activeUserId && data.items[0]?.otherUser?.id) {
+          state.activeUserId = data.items[0].otherUser.id;
+          window.history.replaceState({}, "", `/messages.html?with=${state.activeUserId}`);
+          await loadMessages();
+        }
+      }
+
+      async function loadMessages() {
+        if (!state.activeUserId) {
+          renderMessages(null, []);
+          return;
+        }
+        const data = await api(`/api/messages/${state.activeUserId}`);
+        renderMessages(data.otherUser, data.items);
+      }
+
+      async function sendMessage(event) {
+        event.preventDefault();
+        if (!state.activeUserId) return;
+        const input = document.getElementById("messageInput");
+        const body = input.value.trim();
+        if (!body) return;
+        await api(`/api/messages/${state.activeUserId}`, {
+          method: "POST",
+          body: JSON.stringify({ body }),
+        });
+        input.value = "";
+        await loadMessages();
+        await loadThreads();
+      }
+
+      function initSocket() {
+        state.socket = io({
+          auth: { token: state.token },
+        });
+        state.socket.on("message:new", (payload) => {
+          const related = [payload.from.id, payload.to.id].includes(state.activeUserId);
+          if (related) {
+            loadMessages();
+          }
+          loadThreads();
+        });
+      }
+
+      document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+      document.getElementById("messageForm").addEventListener("submit", sendMessage);
+
+      initTheme();
+      initSocket();
+      loadThreads().catch((error) => {
+        document.getElementById("threadsList").innerHTML = `<div class="rounded-[1.6rem] border border-dashed border-rose-300 p-8 text-center text-sm text-rose-500">${error.message}</div>`;
+      });
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
